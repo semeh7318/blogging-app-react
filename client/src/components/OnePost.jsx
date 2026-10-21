@@ -1,13 +1,19 @@
+import { useParams } from "react-router-dom";
 
-const OnePost = () => (
-  <div className="blog-list-item" >
-    <div className="blog-list-item-title">Post Title</div>
-    <div className="blog-list-item-byline">
-      <span className="blog-list-item-byline-author"> Post Author, </span>
-      some time ago
+function OnePost({ posts }) {
+  const { id } = useParams();
+  const post = posts.find((p) => String(p.id) === id);
+
+  if (!post) return <p>Post not found.</p>;
+
+  return (
+    <div className="post">
+      <h1>{post.title}</h1>
+      <p>{post.author}</p>
+      {post.image && <img src={post.image} alt={post.title} width="100%" />}
+      <p>{post.content}</p>
     </div>
-    <div className="blog-list-item-lede"> Post Content.. </div>
-  </div>
-);
+  );
+}
 
 export default OnePost;

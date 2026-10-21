@@ -1,20 +1,15 @@
+import PostDetails from "./PostDetails";
 
+function AllPosts({ posts }) {
+  if (posts.length === 0) return <p>No posts found.</p>;
 
-const AllPosts = () => (
-  <div className="all-post">
-    <div className="blog-list-item">
-      <div className="blog-list-item-title">Post Title 1</div>
-      <div className="blog-list-item-byline">
-        <span className="blog-list-item-byline-author"> John Doe, </span>
-        a day ago
-      </div>
-      <div className="blog-list-item-lede">
-        <img src="https://www.jennybeaumont.com/wp-content/uploads/2015/03/placeholder.gif" alt="no content" />
-      </div>
+  return (
+    <div>
+      {posts.map((post) => (
+        <PostDetails key={post.id} post={post} />
+      ))}
     </div>
-
-
-  </div>
-);
+  );
+}
 
 export default AllPosts;

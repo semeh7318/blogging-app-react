@@ -174,3 +174,21 @@ form textarea {
 .nav-tab:active {
   transform: scale(0.96);
 }
+
+/* Center the layout */
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+form {
+  justify-items: center;
+}
+
+.post {
+  margin: 10px auto;
+  text-align: center;
+}

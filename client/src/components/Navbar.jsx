@@ -1,28 +1,12 @@
-import { NavLink } from "react-router";
+import { Link } from "react-router-dom";
+import Search from "./Search";
 
-import Search from "./Search.jsx";
-
-function Navbar() {
+function Navbar({ search, setSearch }) {
   return (
-    <nav className="nav">
-      <NavLink
-        to="/createPost"
-        className="nav-tab"
-    >
-        Create Post
-      </NavLink>
-
-      <NavLink
-        to="/posts"
-        className="nav-tab" 
-        
-      >
-        All Posts
-      </NavLink>
-
-      <div>
-        <Search />
-      </div>
+    <nav>
+      <Link to="/posts">All Posts</Link>
+      <Link to="/createPost">New Post</Link>
+      <Search search={search} setSearch={setSearch} />
     </nav>
   );
 }

@@ -1,18 +1,15 @@
-
-const Search = () => {
+function Search({ search, setSearch }) {
   return (
-    <div className="search-div">
+    <form onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
-        className="search"
         placeholder="Search for..."
-        defaultValue=""
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
-      <button className="searchButton" type="button">
-        Search
-      </button>
-    </div>
+      <button type="submit">Search</button>
+    </form>
   );
-};
+}
 
 export default Search;
