@@ -1,55 +1,81 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreatePost({ posts, setPosts }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [error, setError] = useState("");
+function CreatePost({ setPosts, categories }) {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  const [category, setCategory] = useState(categories[0] || "");
+
+  const creationNewPost = (e) => {
     e.preventDefault();
 
-    if (title.length < 3) {
-      setError("Title must have at least 3 characters");
-      return;
-    }
-    if (content.length < 20) {
-      setError("Content must have at least 20 characters");
+    if (title.trim() === "" || content.trim() === "") {
+      alert("Please write a title and content");
       return;
     }
 
-    const newPost = {
+    let newPost = {
       id: Date.now(),
-      title: title,
-      author: "Me",
-      content: content,
+      author: "Moi",
+      title: title.trim(),
+      content: content.trim(),
+      image: image.trim(),
+      category: category,
     };
 
-    setPosts([newPost, ...posts]);
-    setTitle("");
-    setContent("");
-    setError("");
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+
     navigate("/posts");
   };
 
   return (
-    <div className="post">
-      <h1>New Post</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="blog-list-item">
+      <h1 className="New-Post-Title">New Post</h1>
+
+      <form className="New-Post-Form" onSubmit={creationNewPost}>
         <input
+          id="title"
           type="text"
+          className="search"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+
+        <input
+          id="image"
+          type="text"
+          className="search"
+          placeholder="Image URL"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+
+        <select
+          id="category"
+          className="search"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+
         <textarea
-          placeholder="Content..."
+          id="content"
+          placeholder="Content"
+          rows="6"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Publish</button>
+
+        <button type="submit">Add Post</button>
       </form>
     </div>
   );

@@ -7,6 +7,7 @@ const blogData = exempleDonneesBlog.map((post, index) => ({
   author: post.auteur,
   content: post.contenu,
   image: post.imageUrl,
+  category: post.categorie,
 }));
 
 export default blogData;

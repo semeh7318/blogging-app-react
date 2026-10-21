@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import blogData from "./data/exampleBlogData";
 import Navbar from "./components/Navbar";
-import AllPosts from "./components/AllPosts";
-import OnePost from "./components/OnePost";
-import CreatePost from "./components/CreatePost";
+import AppRoutes from "./routes/routes";
 
 function App() {
   const [posts, setPosts] = useState(blogData);
@@ -14,18 +12,17 @@ function App() {
     post.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const categories = [...new Set(blogData.map((post) => post.category))];
+
   return (
     <BrowserRouter>
-      <Navbar search={search} setSearch={setSearch} />
-      <Routes>
-        <Route path="/" element={<Navigate to="/posts" />} />
-        <Route path="/posts" element={<AllPosts posts={filteredPosts} />} />
-        <Route path="/posts/:id" element={<OnePost posts={posts} />} />
-        <Route
-          path="/createPost"
-          element={<CreatePost posts={posts} setPosts={setPosts} />}
-        />
-      </Routes>
+      <Navbar search={search} setSearch={setSearch} categories={categories} />
+      <AppRoutes
+        posts={posts}
+        setPosts={setPosts}
+        filteredPosts={filteredPosts}
+        categories={categories}
+      />
     </BrowserRouter>
   );
 }
